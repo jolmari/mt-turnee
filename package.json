@@ -2,6 +2,10 @@
   "name": "mt-turnee",
   "version": "0.1.0",
   "private": true,
+  "devDependencies": {
+    "tslint": "^5.20.0",
+    "tslint-react": "^4.1.0"
+  },
   "dependencies": {
     "@types/jest": "24.0.19",
     "@types/node": "12.7.12",
