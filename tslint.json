@@ -11,12 +11,8 @@
       "single",
       "jsx-double"
     ],
-    "indent": [
-      true,
-      "tabs",
-      2
-    ],
-    "ordered-imports": false
+    "ordered-imports": false,
+    "no-implicit-dependencies": [true, "dev"]
   },
   "rulesDirectory": []
 }
