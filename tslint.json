@@ -12,7 +12,8 @@
       "jsx-double"
     ],
     "ordered-imports": false,
-    "no-implicit-dependencies": [true, "dev"]
+    "no-implicit-dependencies": [true, "dev"],
+    "jsx-no-lambda": false
   },
   "rulesDirectory": []
 }
