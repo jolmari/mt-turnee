@@ -2,15 +2,13 @@
   "defaultSeverity": "error",
   "extends": [
     "tslint:latest",
-    "tslint-react"
+    "tslint-react",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier"
   ],
   "jsRules": {},
   "rules": {
-    "quotemark": [
-      true,
-      "single",
-      "jsx-double"
-    ],
+    "prettier": true,
     "ordered-imports": false,
     "no-implicit-dependencies": [true, "dev"],
     "jsx-no-lambda": false
