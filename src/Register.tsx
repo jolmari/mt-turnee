@@ -1,38 +1,38 @@
-import React, { FormEvent, ReactNode } from 'react'
+import React, { FormEvent, ReactNode } from 'react';
 
 export class Register extends React.Component<{}, { [key: string]: string }> {
     constructor(props: {}) {
-        super(props)
+        super(props);
 
         this.state = {
             firstName: '',
-        }
+        };
     }
 
     public handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         const firstName: HTMLInputElement = event.currentTarget.elements.namedItem(
             'firstName'
-        ) as HTMLInputElement
+        ) as HTMLInputElement;
 
         this.setState({
             firstName: firstName.value,
-        })
-        event.preventDefault()
-    }
+        });
+        event.preventDefault();
+    };
 
     public handleInput = (
         name: string,
         event: FormEvent<HTMLInputElement>
     ): void => {
-        const { value } = event.currentTarget
+        const { value } = event.currentTarget;
 
         this.setState({
             [name]: value,
-        })
-    }
+        });
+    };
 
     public render(): ReactNode {
-        const { firstName, lastName, email } = this.state
+        const { firstName, lastName, email } = this.state;
 
         return (
             <div>
@@ -71,6 +71,6 @@ export class Register extends React.Component<{}, { [key: string]: string }> {
                     {firstName} {lastName} - {email}
                 </p>
             </div>
-        )
+        );
     }
 }

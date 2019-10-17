@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-/__snapshots*
+/src/__snapshots*
 
 # production
 /build

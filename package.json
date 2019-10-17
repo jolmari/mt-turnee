@@ -1,51 +1,51 @@
 {
-  "name": "mt-turnee",
-  "version": "0.1.0",
-  "private": true,
-  "devDependencies": {
-    "@types/enzyme": "^3.10.3",
-    "@types/enzyme-adapter-react-16": "^1.0.5",
-    "@types/jest": "24.0.19",
-    "@types/node": "12.7.12",
-    "@types/react": "^16.9.6",
-    "@types/react-dom": "16.9.1",
-    "@types/react-test-renderer": "^16.9.1",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
-    "prettier": "^1.18.2",
-    "react-test-renderer": "^16.10.2",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "tslint-react": "^4.1.0"
-  },
-  "dependencies": {
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0",
-    "typescript": "3.6.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "tslint 'src/**.*.{ts,tsx}'",
-    "tslint-rule-check": "tslint-config-prettier-check ./tslint.json"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "mt-turnee",
+    "version": "0.1.0",
+    "private": true,
+    "devDependencies": {
+        "@types/enzyme": "^3.10.3",
+        "@types/enzyme-adapter-react-16": "^1.0.5",
+        "@types/jest": "24.0.19",
+        "@types/node": "12.7.12",
+        "@types/react": "^16.9.6",
+        "@types/react-dom": "16.9.1",
+        "@types/react-test-renderer": "^16.9.1",
+        "enzyme": "^3.10.0",
+        "enzyme-adapter-react-16": "^1.15.1",
+        "prettier": "^1.18.2",
+        "react-test-renderer": "^16.10.2",
+        "tslint": "^5.20.0",
+        "tslint-config-prettier": "^1.18.0",
+        "tslint-plugin-prettier": "^2.0.1",
+        "tslint-react": "^4.1.0"
+    },
+    "dependencies": {
+        "react": "^16.10.2",
+        "react-dom": "^16.10.2",
+        "react-scripts": "3.2.0",
+        "typescript": "3.6.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "lint": "tslint 'src/**.*.{ts,tsx}'",
+        "tslint-rule-check": "tslint-config-prettier-check ./tslint.json"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }
