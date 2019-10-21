@@ -4,6 +4,7 @@ import './App.css';
 import logo from './logo.svg';
 import { Register } from './Register';
 import { RoutePlanner } from './RoutePlanner';
+import { StationMap } from './StationMap';
 
 const App: React.FC = () => {
     return (
@@ -12,7 +13,7 @@ const App: React.FC = () => {
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
-				</p>
+                </p>
                 <a
                     className="App-link"
                     href="https://reactjs.org"
@@ -20,8 +21,9 @@ const App: React.FC = () => {
                     rel="noopener noreferrer"
                 >
                     Learn React
-                            </a>
+                </a>
             </header>
+            <StationMap latitude="60.159443" longitude="24.8785"/>
             <Register />
             <RoutePlanner />
         </div>
