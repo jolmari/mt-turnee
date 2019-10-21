@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './App.css';
-import logo from './logo.svg';
+import logo from './metro.svg';
 import { Register } from './Register';
 import { RoutePlanner } from './RoutePlanner';
 import { StationMap } from './StationMap';
@@ -11,19 +11,9 @@ const App: React.FC = () => {
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
+                <h1>Metro Turnee</h1>
             </header>
-            <StationMap latitude="60.159443" longitude="24.8785"/>
+            <StationMap latitude="60.159443" longitude="24.8785" />
             <Register />
             <RoutePlanner />
         </div>
