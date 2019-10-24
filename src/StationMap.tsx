@@ -1,12 +1,5 @@
 import React, { ReactNode } from 'react';
-import Secrets from './secrets/secrets.json';
-
-interface ISecrets {
-    here_loc_services: {
-        app_id: string;
-        app_code: string;
-    };
-}
+import { ISecrets } from './interfaces/ISecrets.js';
 
 interface MapParams {
     width: number;
@@ -15,14 +8,14 @@ interface MapParams {
 }
 
 interface MapProps {
+    secrets: ISecrets;
     params: MapParams;
     latitude: string;
     longitude: string;
 }
 
 export class StationMap extends React.Component<MapProps, {}> {
-    
-    public  static defaultProps = {
+    public static defaultProps = {
         params: {
             height: 200,
             width: 200,
@@ -30,20 +23,19 @@ export class StationMap extends React.Component<MapProps, {}> {
         },
     };
 
-    private secrets: ISecrets;
-
     public constructor(props: {
+        secrets: ISecrets;
         params: MapParams;
         latitude: string;
         longitude: string;
     }) {
         super(props);
-        this.secrets = Secrets;
     }
 
     public render(): ReactNode {
         const poi = `${this.props.latitude}, ${this.props.longitude}`;
         const { width, height, zoom } = this.props.params;
+        const { secrets } = this.props;
 
         return (
             <img
@@ -54,9 +46,9 @@ export class StationMap extends React.Component<MapProps, {}> {
                     `&z=${zoom}` +
                     '&t=5&poitxs=16&poitxc=black&poifc=yellow' +
                     '&app_id=' +
-                    this.secrets.here_loc_services.app_id +
+                    secrets.here_loc_services.app_id +
                     '&app_code=' +
-                    this.secrets.here_loc_services.app_code +
+                    secrets.here_loc_services.app_code +
                     '&poi=' +
                     poi
                 }
