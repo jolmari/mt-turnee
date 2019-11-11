@@ -4,8 +4,6 @@ import './App.css';
 import logo from './metro.svg';
 import { Register } from './Register';
 import { RoutePlanner } from './RoutePlanner';
-import { StationMap } from './StationMap';
-import { PlaceSuggestions } from './PlaceSuggestions';
 import Secrets from './secrets/secrets.json';
 import { ISecrets } from './interfaces/ISecrets';
 
@@ -22,10 +20,8 @@ const App: React.FC = () => {
                 <img src={logo} className="App-logo" alt="logo" />
                 <h1>Metro Turnee</h1>
             </header>
-            <StationMap secrets={secrets} latitude="60.159443" longitude="24.8785" />
             <Register />
-            <RoutePlanner />
-            <PlaceSuggestions secrets={secrets} />
+            <RoutePlanner secrets={secrets} />
         </div>
     );
 };

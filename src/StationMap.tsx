@@ -7,14 +7,14 @@ interface MapParams {
     zoom: number;
 }
 
-interface MapProps {
+interface IProps {
     secrets: ISecrets;
     params: MapParams;
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
 }
 
-export class StationMap extends React.Component<MapProps, {}> {
+export class StationMap extends React.Component<IProps, {}> {
     public static defaultProps = {
         params: {
             height: 200,
@@ -23,12 +23,7 @@ export class StationMap extends React.Component<MapProps, {}> {
         },
     };
 
-    public constructor(props: {
-        secrets: ISecrets;
-        params: MapParams;
-        latitude: string;
-        longitude: string;
-    }) {
+    public constructor(props: IProps) {
         super(props);
     }
 

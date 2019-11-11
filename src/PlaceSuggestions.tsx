@@ -4,6 +4,8 @@ import { FetchGet } from './helpers/api-call-helpers';
 
 interface IProps {
     secrets: ISecrets;
+    originLatitude: number;
+    originLongitude: number;
 }
 
 interface IState {
@@ -21,24 +23,26 @@ export class PlaceSuggestions extends React.Component<IProps, IState> {
     }
 
     public componentDidMount(): void {
-        const { secrets } = this.props;
+        const { secrets, originLatitude, originLongitude } = this.props;
 
         this.setState({
             isLoading: true,
         });
 
         FetchGet<any>(
-            'https://places.cit.api.here.com/places/v1/autosuggest' +
-                `?at=${60.159443},${24.8785}` +
+            'https://places.cit.api.here.com/places/v1/discover/around' +
+                `?at=${originLatitude},${originLongitude}` +
+                `&r=300` +
                 `&app_id=${secrets.here_loc_services.app_id}` +
-                `&app_code=${secrets.here_loc_services.app_code}` +
-                '&q=/restaurant/'
+                `&app_code=${secrets.here_loc_services.app_code}`
         ).then(body => {
             this.setState({
-                data: body.results.map((value: any, index: number) => {
-                    value.id = index;
-                    return value;
-                }),
+                data: body.results.items
+                    .filter((i: any) => i.category.id === 'restaurant')
+                    .map((value: any, index: number) => {
+                        value.id = index;
+                        return value;
+                    }),
                 isLoading: false,
             });
         });
@@ -56,9 +60,13 @@ export class PlaceSuggestions extends React.Component<IProps, IState> {
         }
 
         return (
-            <div>
+            <div className="flex-container flex-horizontal">
                 {data ? (
-                    data.map(place => <p key={place.id}>{place.title}</p>)
+                    data.map(place => (
+                        <div key={place.id} className="card">
+                            <p key={place.id}>{place.title}</p>
+                        </div>
+                    ))
                 ) : (
                     <p>No places to display.</p>
                 )}
