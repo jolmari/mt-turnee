@@ -1,11 +1,11 @@
-export function FetchGet<T>(url: string): Promise<T> {
-    return fetch(url)
-        .then(response => {
-            if (response.ok) {
-                return response;
-            }
+export class ApiCallHelpers {
+    public static async FetchGet<T>(url: string): Promise<T> {
+        const response = await fetch(url);
 
+        if (!response.ok) {
             throw new Error(`${response.status}: ${response.statusText}`);
-        })
-        .then(response => response.json());
+        }
+
+        return response.json();
+    }
 }

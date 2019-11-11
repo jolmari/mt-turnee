@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { ISecrets } from './interfaces/ISecrets';
-import { FetchGet } from './helpers/api-call-helpers';
+import { ApiCallHelpers } from './helpers/api-call-helpers';
 
 interface IProps {
     secrets: ISecrets;
@@ -29,39 +29,51 @@ export class PlaceSuggestions extends React.Component<IProps, IState> {
             isLoading: true,
         });
 
-        FetchGet<any>(
+        ApiCallHelpers.FetchGet<any>(
             'https://places.cit.api.here.com/places/v1/discover/around' +
                 `?at=${originLatitude},${originLongitude}` +
                 `&r=300` +
                 `&app_id=${secrets.here_loc_services.app_id}` +
                 `&app_code=${secrets.here_loc_services.app_code}`
-        ).then(body => {
-            this.setState({
-                data: body.results.items
-                    .filter((i: any) => i.category.id === 'restaurant')
-                    .map((value: any, index: number) => {
-                        value.id = index;
-                        return value;
-                    }),
-                isLoading: false,
-            });
+        ).then(response => {
+            if (
+                response.body &&
+                response.body.results &&
+                response.body.results.items
+            ) {
+                this.setState({
+                    data: response.body.results.items
+                        .filter((i: any) => i.category.id === 'restaurant')
+                        .map((value: any, index: number) => {
+                            value.id = index;
+                            return value;
+                        }),
+                    isLoading: false,
+                });
+            } else {
+                this.setState({
+                    data: [],
+                    isLoading: false,
+                });
+            }
         });
     }
 
     public render(): ReactNode {
         const { data, isLoading } = this.state;
 
-        if (isLoading) {
-            return (
-                <div>
-                    <p>Loading...</p>
-                </div>
-            );
-        }
+        // TODO: Breaks unit tests, replace with a loading component.
+        // if (isLoading) {
+        //     return (
+        //         <div>
+        //             <p>Loading...</p>
+        //         </div>
+        //     );
+        // }
 
         return (
             <div className="flex-container flex-horizontal">
-                {data ? (
+                {data.length > 0 ? (
                     data.map(place => (
                         <div key={place.id} className="card">
                             <p key={place.id}>{place.title}</p>

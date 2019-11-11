@@ -1,4 +1,4 @@
-import { FetchGet } from './api-call-helpers';
+import { ApiCallHelpers } from './api-call-helpers';
 
 describe('ApiCallHelpers', () => {
     it('FetchGet() should return json() result on success response.', async () => {
@@ -6,7 +6,7 @@ describe('ApiCallHelpers', () => {
         const mockResponse: Response = new Response();
         Object.assign(mockResponse, {
             json: () => ({
-                data: 'foo'
+                data: 'foo',
             }),
             ok: true,
         });
@@ -17,7 +17,7 @@ describe('ApiCallHelpers', () => {
         );
 
         // Act & Assert
-        await expect(FetchGet<any>('url')).resolves.toEqual({
+        await expect(ApiCallHelpers.FetchGet<any>('url')).resolves.toEqual({
             data: 'foo',
         });
     });
@@ -37,7 +37,7 @@ describe('ApiCallHelpers', () => {
         );
 
         // Act & Assert
-        await expect(FetchGet<any>('url')).rejects.toThrowError(
+        await expect(ApiCallHelpers.FetchGet<any>('url')).rejects.toThrowError(
             '401: Forbidden'
         );
     });
