@@ -62,14 +62,13 @@ export class PlaceSuggestions extends React.Component<IProps, IState> {
     public render(): ReactNode {
         const { data, isLoading } = this.state;
 
-        // TODO: Breaks unit tests, replace with a loading component.
-        // if (isLoading) {
-        //     return (
-        //         <div>
-        //             <p>Loading...</p>
-        //         </div>
-        //     );
-        // }
+        if (isLoading) {
+            return (
+                <div>
+                    <p>Loading...</p>
+                </div>
+            );
+        }
 
         return (
             <div className="flex-container flex-horizontal">

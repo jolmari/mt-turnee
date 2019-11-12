@@ -1,6 +1,5 @@
 export class ApiCallHelpers {
-    public static   FetchGet(url: string): Promise<any> {
-        // tslint:disable-next-line: no-object-literal-type-assertion
+    public static FetchGet(url: string): Promise<any> {
         return Promise.resolve({
             body: {
                 results: {
