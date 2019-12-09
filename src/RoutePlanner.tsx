@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import stopsData from './data/metro-stops.json';
 import { PlaceSuggestions } from './PlaceSuggestions';
 import { ISecrets } from './interfaces/ISecrets';
-import { StationMap } from './StationMap';
+import { StationCard } from './StationCard';
 
 interface IStop {
     gtfsId: string;
@@ -56,18 +56,12 @@ export class RoutePlanner extends React.Component<
                                 style={{ padding: '1em' }}
                             >
                                 <div className="flex-container flex-horizontal bg-light-gray">
-                                    <div className="bg-blue">
-                                        <p>Stop: {stop.name}</p>
-                                        <p>Latitude: {stop.lat}</p>
-                                        <p>Longitude: {stop.lon}</p>
-                                    </div>
-                                    <div style={{ margin: '1em' }}>
-                                        <StationMap
-                                            secrets={this.props.secrets}
-                                            latitude={stop.lat}
-                                            longitude={stop.lon}
-                                        />
-                                    </div>
+                                    <StationCard
+                                        secrets={this.props.secrets}
+                                        stopName={stop.name}
+                                        latitude={stop.lat}
+                                        longitude={stop.lon}
+                                    />
                                 </div>
                                 <PlaceSuggestions
                                     secrets={this.props.secrets}
@@ -79,21 +73,28 @@ export class RoutePlanner extends React.Component<
                     ))}
                 </ul>
                 <h2>Available stops</h2>
-                <ul>
+                <div>
                     {availableStops
                         .filter(stop => stop.vehicleMode === 'SUBWAY')
                         .map(stop => (
-                            <li key={stop.gtfsId}>
-                                {stop.name} - latitude: {stop.lat} / longitude:{' '}
-                                {stop.lon}
-                                <button
-                                    type="button"
-                                    onClick={event => this.selectStop(stop)}
-                                    value="Select"
-                                />
-                            </li>
+                            <div
+                                key={stop.gtfsId}
+                                className="flex-container flex-horizontal bg-light-gray"
+                            >
+                                <div className="flex-container flex-horizontal bg-light-gray">
+                                    <StationCard
+                                        secrets={this.props.secrets}
+                                        stopName={stop.name}
+                                        latitude={stop.lat}
+                                        longitude={stop.lon}
+                                        selectionCallback={() =>
+                                            this.selectStop(stop)
+                                        }
+                                    />
+                                </div>
+                            </div>
                         ))}
-                </ul>
+                </div>
             </div>
         );
     }
