@@ -42,19 +42,27 @@ export class RoutePlanner extends React.Component<
         }
     };
 
+    public removeStop = (removedStop: IStop) => {
+        const updatedStops = this.state.selectedStops.filter(
+            stop => stop.gtfsId !== removedStop.gtfsId
+        );
+
+        this.setState({
+            availableStops: [...this.state.availableStops, removedStop],
+            selectedStops: [...updatedStops],
+        });
+    };
+
     public render(): ReactNode {
         const { availableStops, selectedStops } = this.state;
 
         return (
             <div>
-                <h2>Selected stops</h2>
-                <ul>
-                    {selectedStops.map(stop => (
-                        <li key={stop.gtfsId}>
-                            <div
-                                className="flex-container flex-vertical flex-centered bg-lighter-gray"
-                                style={{ padding: '1em' }}
-                            >
+                <div>
+                    <h2>Selected stops</h2>
+                    <ul>
+                        {selectedStops.map(stop => (
+                            <li key={stop.gtfsId}>
                                 <div className="flex-container flex-horizontal bg-light-gray">
                                     <StationCard
                                         secrets={this.props.secrets}
@@ -68,20 +76,20 @@ export class RoutePlanner extends React.Component<
                                     originLatitude={stop.lat}
                                     originLongitude={stop.lon}
                                 />
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-                <h2>Available stops</h2>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                 <div>
-                    {availableStops
-                        .filter(stop => stop.vehicleMode === 'SUBWAY')
-                        .map(stop => (
-                            <div
-                                key={stop.gtfsId}
-                                className="flex-container flex-horizontal bg-light-gray"
-                            >
-                                <div className="flex-container flex-horizontal bg-light-gray">
+                    <h2>Available stops</h2>
+                    <ul>
+                        {availableStops
+                            .filter(stop => stop.vehicleMode === 'SUBWAY')
+                            .map(stop => (
+                                <li
+                                    key={stop.gtfsId}
+                                    className="flex-container flex-horizontal bg-light-gray"
+                                >
                                     <StationCard
                                         secrets={this.props.secrets}
                                         stopName={stop.name}
@@ -91,9 +99,9 @@ export class RoutePlanner extends React.Component<
                                             this.selectStop(stop)
                                         }
                                     />
-                                </div>
-                            </div>
-                        ))}
+                                </li>
+                            ))}
+                    </ul>
                 </div>
             </div>
         );
