@@ -1,26 +1,18 @@
 import React, { ReactNode } from 'react';
 import stopsData from './data/metro-stops.json';
 import { PlaceSuggestions } from './PlaceSuggestions';
-import { ISecrets } from './interfaces/ISecrets';
 import { StationCard } from './StationCard';
-
-interface IStop {
-    gtfsId: string;
-    name: string;
-    vehicleMode: string;
-    lat: number;
-    lon: number;
-}
-
-interface IProps {
-    secrets: ISecrets;
-}
+import RoutePlannerContext from './context/RoutePlannerContext';
+import { IStop } from './interfaces/IStop.js';
 
 export class RoutePlanner extends React.Component<
-    IProps,
-    { availableStops: IStop[]; selectedStops: IStop[] }
+    {},
+    {
+        availableStops: IStop[];
+        selectedStops: IStop[];
+    }
 > {
-    constructor(props: IProps) {
+    constructor(props: {}) {
         super(props);
 
         this.state = {
@@ -57,53 +49,68 @@ export class RoutePlanner extends React.Component<
         const { availableStops, selectedStops } = this.state;
 
         return (
-            <div>
-                <div>
-                    <h2>Selected stops</h2>
-                    <ul>
-                        {selectedStops.map(stop => (
-                            <li key={stop.gtfsId}>
-                                <div className="flex-container flex-horizontal bg-light-gray">
-                                    <StationCard
-                                        secrets={this.props.secrets}
-                                        stopName={stop.name}
-                                        latitude={stop.lat}
-                                        longitude={stop.lon}
-                                    />
-                                </div>
-                                <PlaceSuggestions
-                                    secrets={this.props.secrets}
-                                    originLatitude={stop.lat}
-                                    originLongitude={stop.lon}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div>
-                    <h2>Available stops</h2>
-                    <ul>
-                        {availableStops
-                            .filter(stop => stop.vehicleMode === 'SUBWAY')
-                            .map(stop => (
-                                <li
-                                    key={stop.gtfsId}
-                                    className="flex-container flex-horizontal bg-light-gray"
-                                >
-                                    <StationCard
-                                        secrets={this.props.secrets}
-                                        stopName={stop.name}
-                                        latitude={stop.lat}
-                                        longitude={stop.lon}
-                                        selectionCallback={() =>
-                                            this.selectStop(stop)
-                                        }
-                                    />
+            <RoutePlannerContext.Consumer>
+                {context => (
+                    <div>
+                        <h2>Selected stops</h2>
+                        <ul>
+                            {selectedStops.map(stop => (
+                                <li key={stop.gtfsId}>
+                                    <div
+                                        className="flex-container flex-vertical flex-centered bg-lighter-gray"
+                                        style={{ padding: '1em' }}
+                                    >
+                                        <div className="flex-container flex-horizontal bg-light-gray">
+                                            <StationCard
+                                                secrets={context.secrets}
+                                                stopName={stop.name}
+                                                latitude={stop.lat}
+                                                longitude={stop.lon}
+                                            />
+                                        </div>
+                                        <PlaceSuggestions
+                                            secrets={context.secrets}
+                                            originLatitude={stop.lat}
+                                            originLongitude={stop.lon}
+                                        />
+                                    </div>
                                 </li>
                             ))}
-                    </ul>
-                </div>
-            </div>
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    context.handleRouteSave(selectedStops)
+                                }
+                            >
+                                Save route
+                            </button>
+                        </ul>
+                        <h2>Available stops</h2>
+                        <div>
+                            {availableStops
+                                .filter(stop => stop.vehicleMode === 'SUBWAY')
+                                .map(stop => (
+                                    <div
+                                        key={stop.gtfsId}
+                                        className="flex-container flex-horizontal bg-light-gray"
+                                    >
+                                        <div className="flex-container flex-horizontal bg-light-gray">
+                                            <StationCard
+                                                secrets={context.secrets}
+                                                stopName={stop.name}
+                                                latitude={stop.lat}
+                                                longitude={stop.lon}
+                                                selectionCallback={() =>
+                                                    this.selectStop(stop)
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                        </div>
+                    </div>
+                )}
+            </RoutePlannerContext.Consumer>
         );
     }
 }

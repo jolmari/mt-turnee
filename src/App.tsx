@@ -6,6 +6,8 @@ import { Register } from './Register';
 import { RoutePlanner } from './RoutePlanner';
 import Secrets from './secrets/secrets.json';
 import { ISecrets } from './interfaces/ISecrets';
+import RoutePlannerContext from './context/RoutePlannerContext';
+import { IStop } from './interfaces/IStop';
 
 const getSecrets = (): ISecrets => {
     return Secrets;
@@ -13,6 +15,9 @@ const getSecrets = (): ISecrets => {
 
 const App: React.FC = () => {
     const secrets = getSecrets();
+    const saveRoute = (stops: IStop[]) => {
+        console.log({ stops });
+    };
 
     return (
         <div className="App">
@@ -21,7 +26,14 @@ const App: React.FC = () => {
                 <h1>Metro Turnee</h1>
             </header>
             <Register />
-            <RoutePlanner secrets={secrets} />
+            <RoutePlannerContext.Provider
+                value={{
+                    handleRouteSave: saveRoute,
+                    secrets,
+                }}
+            >
+                <RoutePlanner />
+            </RoutePlannerContext.Provider>
         </div>
     );
 };

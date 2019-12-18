@@ -22,7 +22,7 @@ export class StationCard extends React.Component<ICardProps, {}> {
 
     public renderButton = (callback: () => void) => {
         if (callback) {
-            return <button type="button" onClick={callback} value="Select" />;
+            return <button type="button" onClick={callback}>Select stop</button>;
         }
     };
 
