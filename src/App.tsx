@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './App.css';
 import logo from './metro.svg';
@@ -14,9 +14,10 @@ const getSecrets = (): ISecrets => {
 };
 
 const App: React.FC = () => {
+    const [stops, setStops] = useState<IStop[]>([]);
     const secrets = getSecrets();
     const saveRoute = (stops: IStop[]) => {
-        console.log({ stops });
+        setStops(stops);
     };
 
     return (
@@ -26,6 +27,7 @@ const App: React.FC = () => {
                 <h1>Metro Turnee</h1>
             </header>
             <Register />
+            <p>{ stops.length }</p>
             <RoutePlannerContext.Provider
                 value={{
                     handleRouteSave: saveRoute,
